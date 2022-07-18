@@ -19,7 +19,6 @@ module "log-monitoring" {
   # Input Variables
   server_name      = "docker_host"
   environment_name = "dev"
-  private_ip       = "10.0.1.51"
 
 }
 
