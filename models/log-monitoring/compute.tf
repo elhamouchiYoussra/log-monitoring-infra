@@ -21,11 +21,80 @@ resource "aws_instance" "kibana" {
 
   network_interface {
     device_index         = 0
-    network_interface_id = aws_network_interface.web-server-nic.id
+    network_interface_id = aws_network_interface.nic-kibana.id
   }
 
   tags = {
-    Name = "${var.environment_name}-kibanar"
+    Name = "${var.environment_name}-kibana"
+  }
+
+
+}
+
+resource "aws_instance" "node1_elk" {
+  ami               = "ami-0fa49cc9dc8d62c84"
+  instance_type     = "m4.large"
+  availability_zone = "us-east-2a"
+  key_name          = aws_key_pair.deployer.key_name
+
+  user_data = <<-EOF
+                 #!/bin/bash
+                 sudo apt update -y
+                 EOF
+
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.nic-node1_elk.id
+  }
+
+  tags = {
+    Name = "${var.environment_name}-node1_elk"
+  }
+
+
+}
+
+resource "aws_instance" "node2_elk" {
+  ami               = "ami-0fa49cc9dc8d62c84"
+  instance_type     = "m4.large"
+  availability_zone = "us-east-2a"
+  key_name          = aws_key_pair.deployer.key_name
+
+  user_data = <<-EOF
+                 #!/bin/bash
+                 sudo apt update -y
+                 EOF
+
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.nic-node2_elk.id
+  }
+
+  tags = {
+    Name = "${var.environment_name}-node2_elk"
+  }
+
+
+}
+
+resource "aws_instance" "logstash" {
+  ami               = "ami-0fa49cc9dc8d62c84"
+  instance_type     = "m4.large"
+  availability_zone = "us-east-2a"
+  key_name          = aws_key_pair.deployer.key_name
+
+  user_data = <<-EOF
+                 #!/bin/bash
+                 sudo apt update -y
+                 EOF
+
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.nic-logstash.id
+  }
+
+  tags = {
+    Name = "${var.environment_name}-logstash"
   }
 
 

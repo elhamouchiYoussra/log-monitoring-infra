@@ -157,6 +157,170 @@ resource "aws_eip" "elastic-ip" {
   associate_with_private_ip = var.private_ip
   depends_on                = [aws_internet_gateway.gw]
   tags = {
-    Name = "${var.environment_name}-${var.server_name}-ip"
+    Name = "${var.environment_name}-kibana"
+  }
+}
+
+
+# 9. security group for node1_elk instance
+resource "aws_security_group" "sg-node1_elk" {
+  name        = "allow_web_traffic"
+  description = "allow web inbound traffic"
+  vpc_id      = aws_vpc.prod-vpc.id
+
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ tags = {
+    Name = "${var.environment_name}-node1_elk"
+  }
+}
+
+# 10. creat network interfece for node1_elk instance 
+resource "aws_network_interface" "nic-node1_elk" {
+  subnet_id       = aws_subnet.subnet-1.id
+  private_ips     = [var.private_ip]
+  security_groups = [aws_security_group.sg-node1_elk.id]
+   tags = {
+    Name = "${var.environment_name}-node1_elk"
+  }
+}
+
+# 11. creat elastic ip for node1_elk instance 
+resource "aws_eip" "elastic-ip" {
+  vpc                       = true
+  network_interface         = aws_network_interface.nic-node1_elk.id
+  associate_with_private_ip = var.private_ip
+  depends_on                = [aws_internet_gateway.gw]
+  tags = {
+    Name = "${var.environment_name}-node1_elk"
+  }
+}
+
+
+# 12. security group for node2_elk instance
+resource "aws_security_group" "sg-node2_elk" {
+  name        = "allow_web_traffic"
+  description = "allow web inbound traffic"
+  vpc_id      = aws_vpc.prod-vpc.id
+
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ tags = {
+    Name = "${var.environment_name}-node2_elk"
+  }
+}
+
+# 13. creat network interfece for node2_elk instance 
+resource "aws_network_interface" "nic-node2_elk" {
+  subnet_id       = aws_subnet.subnet-1.id
+  private_ips     = [var.private_ip]
+  security_groups = [aws_security_group.sg-node2_elk.id]
+   tags = {
+    Name = "${var.environment_name}-node2_elk"
+  }
+}
+
+# 14. creat elastic ip for node2_elk instance 
+resource "aws_eip" "elastic-ip" {
+  vpc                       = true
+  network_interface         = aws_network_interface.nic-node2_elk.id
+  associate_with_private_ip = var.private_ip
+  depends_on                = [aws_internet_gateway.gw]
+  tags = {
+    Name = "${var.environment_name}-node2_elk"
+  }
+}
+
+# 15. security group for logstash instance
+resource "aws_security_group" "sg-logstash" {
+  name        = "allow_web_traffic"
+  description = "allow web inbound traffic"
+  vpc_id      = aws_vpc.prod-vpc.id
+
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 5044
+    to_port     = 5044
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ tags = {
+    Name = "${var.environment_name}-logstash"
+  }
+}
+
+# 16. creat network interfece for logstash instance 
+resource "aws_network_interface" "nic-logstash" {
+  subnet_id       = aws_subnet.subnet-1.id
+  private_ips     = [var.private_ip]
+  security_groups = [aws_security_group.sg-logstash.id]
+   tags = {
+    Name = "${var.environment_name}-logstash"
+  }
+}
+
+# 17. creat elastic ip for logstash instance 
+resource "aws_eip" "elastic-ip" {
+  vpc                       = true
+  network_interface         = aws_network_interface.nic-logstash.id
+  associate_with_private_ip = var.private_ip
+  depends_on                = [aws_internet_gateway.gw]
+  tags = {
+    Name = "${var.environment_name}-logstash"
   }
 }
