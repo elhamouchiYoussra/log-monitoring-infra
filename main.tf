@@ -1,9 +1,4 @@
 terraform {
-  # Assumes s3 bucket and dynamo DB table already set up
-  # See /code/03-basics/aws-backend
-
- 
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -15,7 +10,7 @@ terraform {
 
 
 module "log-monitoring" {
-  source = "./models/log-monatoring"
+  source = "./models/log-monitoring"
   # Input Variables
   server_name      = "docker_host"
   environment_name = "dev"

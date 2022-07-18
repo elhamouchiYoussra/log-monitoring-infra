@@ -85,7 +85,7 @@ resource "aws_security_group" "sg-kibana" {
 # 7. creat network interfece for kibana instance 
 resource "aws_network_interface" "nic-kibana" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = [10.0.1.51]
+  private_ips     = ["10.0.1.51"]
   security_groups = [aws_security_group.sg-kibana.id]
    tags = {
     Name = "${var.environment_name}-kibana"
@@ -94,10 +94,10 @@ resource "aws_network_interface" "nic-kibana" {
 
 
 # 8. creat elastic ip for kibana instance 
-resource "aws_eip" "elastic-ip" {
+resource "aws_eip" "elastic-ip-kibana" {
   vpc                       = true
   network_interface         = aws_network_interface.nic-kibana.id
-  associate_with_private_ip = 10.0.1.51
+  associate_with_private_ip = "10.0.1.51"
   depends_on                = [aws_internet_gateway.gw]
   tags = {
     Name = "${var.environment_name}-${var.server_name}-ip"
@@ -144,7 +144,7 @@ resource "aws_security_group" "sg-node1_elk" {
 # 10. creat network interfece for node1_elk instance 
 resource "aws_network_interface" "nic-node1_elk" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = [10.0.1.52]
+  private_ips     = ["10.0.1.52"]
   security_groups = [aws_security_group.sg-node1_elk.id]
    tags = {
     Name = "${var.environment_name}-node1_elk"
@@ -152,10 +152,10 @@ resource "aws_network_interface" "nic-node1_elk" {
 }
 
 # 11. creat elastic ip for node1_elk instance 
-resource "aws_eip" "elastic-ip" {
+resource "aws_eip" "elastic-ip-node1_elk" {
   vpc                       = true
   network_interface         = aws_network_interface.nic-node1_elk.id
-  associate_with_private_ip = 10.0.1.52
+  associate_with_private_ip = "10.0.1.52"
   depends_on                = [aws_internet_gateway.gw]
   tags = {
     Name = "${var.environment_name}-node1_elk"
@@ -199,7 +199,7 @@ resource "aws_security_group" "sg-node2_elk" {
 # 13. creat network interfece for node2_elk instance 
 resource "aws_network_interface" "nic-node2_elk" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = [10.0.1.53]
+  private_ips     = ["10.0.1.53"]
   security_groups = [aws_security_group.sg-node2_elk.id]
    tags = {
     Name = "${var.environment_name}-node2_elk"
@@ -207,10 +207,10 @@ resource "aws_network_interface" "nic-node2_elk" {
 }
 
 # 14. creat elastic ip for node2_elk instance 
-resource "aws_eip" "elastic-ip" {
+resource "aws_eip" "elastic-ip-node2_elk" {
   vpc                       = true
   network_interface         = aws_network_interface.nic-node2_elk.id
-  associate_with_private_ip = 10.0.1.53
+  associate_with_private_ip = "10.0.1.53"
   depends_on                = [aws_internet_gateway.gw]
   tags = {
     Name = "${var.environment_name}-node2_elk"
@@ -253,7 +253,7 @@ resource "aws_security_group" "sg-logstash" {
 # 16. creat network interfece for logstash instance 
 resource "aws_network_interface" "nic-logstash" {
   subnet_id       = aws_subnet.subnet-1.id
-  private_ips     = [10.0.1.54]
+  private_ips     = ["10.0.1.54"]
   security_groups = [aws_security_group.sg-logstash.id]
    tags = {
     Name = "${var.environment_name}-logstash"
@@ -261,10 +261,10 @@ resource "aws_network_interface" "nic-logstash" {
 }
 
 # 17. creat elastic ip for logstash instance 
-resource "aws_eip" "elastic-ip" {
+resource "aws_eip" "elastic-ip-logstash" {
   vpc                       = true
   network_interface         = aws_network_interface.nic-logstash.id
-  associate_with_private_ip = 10.0.1.54
+  associate_with_private_ip = "10.0.1.54"
   depends_on                = [aws_internet_gateway.gw]
   tags = {
     Name = "${var.environment_name}-logstash"
