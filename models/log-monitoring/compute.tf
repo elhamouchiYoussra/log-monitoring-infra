@@ -12,7 +12,7 @@ resource "aws_instance" "kibana" {
   ami               = "ami-0fa49cc9dc8d62c84"
   instance_type     = "m4.large"
   availability_zone = "us-east-2a"
-  key_name          = aws_key_pair.deployer.key_name
+  key_name          = aws_key_pair.log-monatoring.key_name
 
   user_data = <<-EOF
                  #!/bin/bash
@@ -35,7 +35,7 @@ resource "aws_instance" "node1_elk" {
   ami               = "ami-0fa49cc9dc8d62c84"
   instance_type     = "m4.large"
   availability_zone = "us-east-2a"
-  key_name          = aws_key_pair.deployer.key_name
+  key_name          = aws_key_pair.log-monatoring.key_name
 
   user_data = <<-EOF
                  #!/bin/bash
@@ -58,7 +58,7 @@ resource "aws_instance" "node2_elk" {
   ami               = "ami-0fa49cc9dc8d62c84"
   instance_type     = "m4.large"
   availability_zone = "us-east-2a"
-  key_name          = aws_key_pair.deployer.key_name
+  key_name          = aws_key_pair.log-monatoring.key_name
 
   user_data = <<-EOF
                  #!/bin/bash
@@ -81,7 +81,7 @@ resource "aws_instance" "logstash" {
   ami               = "ami-0fa49cc9dc8d62c84"
   instance_type     = "m4.large"
   availability_zone = "us-east-2a"
-  key_name          = aws_key_pair.deployer.key_name
+  key_name          = aws_key_pair.log-monatoring.key_name
 
   user_data = <<-EOF
                  #!/bin/bash

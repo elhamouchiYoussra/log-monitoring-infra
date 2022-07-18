@@ -22,15 +22,3 @@ variable "protocol" {
   type        = string
   default     = "tcp"
 }
-
-variable "port" {
-  description = "from port"
-  type        = string
-}
-
-
-
-variable "private_ip" {
-  description = "private_ip"
-  type        = string
-}
