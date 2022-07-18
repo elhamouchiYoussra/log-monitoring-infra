@@ -1,7 +1,7 @@
 #.ssh file
 ./.ssh
 # Local .terraform directories
-**/.terraform/*
+**/.terraform/*\mail\u\0
 .terraform
 ./web-app/.terraform
 ./instance/.terraform

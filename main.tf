@@ -14,7 +14,7 @@ terraform {
 
 
 
-module "docker" {
+module "log-monitoring" {
   source = "./models/log-monatoring"
   # Input Variables
   server_name      = "docker_host"
@@ -23,18 +23,6 @@ module "docker" {
 
 }
 
-
-
-
-module "jenkins" {
-  source = "./models/instance"
-  # Input Variables
-  server_name      = "jenkins_server"
-  environment_name = "dev"
-  port             = 8080
-  private_ip       = "10.0.1.52"
-
-}
 
 provider "aws" {
   profile = "default"
