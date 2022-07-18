@@ -10,7 +10,7 @@ output "jenkins-addr" {
   value = module.jenkins.server_ip_addr
 
 }
-*/
+
 
 
 output "docker-addr" {
@@ -22,4 +22,4 @@ output "jenkins-addr" {
   value = module.jenkins.server_ip_addr
 
 }
-
+*/

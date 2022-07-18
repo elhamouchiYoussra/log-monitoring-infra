@@ -15,11 +15,10 @@ terraform {
 
 
 module "docker" {
-  source = "./models/instance"
+  source = "./models/log-monatoring"
   # Input Variables
   server_name      = "docker_host"
   environment_name = "dev"
-  port             = 9000
   private_ip       = "10.0.1.51"
 
 }
